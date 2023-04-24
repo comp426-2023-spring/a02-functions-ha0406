@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-import moment from "moment-timezone";
 import minimist from "minimist";
 import fetch from "node-fetch";
+import moment from "moment-timezone";
 
 const args = minimist(process.argv.slice(2))
 
-if('h' in args){
+if ('h' in args) {
     console.log(`
         Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE
             -h            Show this help message and exit.
@@ -23,37 +23,38 @@ let long;
 let lat;
 
 // n
-
-if('n' in args) {
+if ('n' in args) {
     lat = args["n"];
-}else if('s' in args) {
+} else if ('s' in args) {
     lat = -args["s"];
 }
 
 // e
-
-if('e' in args) {
+if ('e' in args) {
     long = args["e"];
-}else if('w' in args) {
+} else if ('w' in args) {
     long = -args["w"];
 }
 
-if(!lat || !long){
+// quick initial validity check
+
+if (!lat || !long){
     console.log("Latitude must be in range")
     process.exit(0)
 }
 
-// Statements below to validate that lat and long are valid
-if(lat == undefined || Math.abs(lat) > 90) {
+// more detailed coordinate validity check
+if (long == undefined || Math.abs(long) > 180) {
     process.exit(1);
 }
-if(long == undefined || Math.abs(long) > 180) {
+
+if (lat == undefined || Math.abs(lat) > 90) {
     process.exit(1);
 }
 
 // timezone
 let timezone = moment.tz.guess();
-if('t' in args){
+if ('t' in args){
     timezone  =  args['t'];
 }
 
@@ -61,7 +62,8 @@ if('t' in args){
 let a02url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + long + "&daily=precipitation_hours&current_weather=true&timezone=" + timezone;
 const response = await fetch(a02url);
 let data = await response.json();
-//console.log(data)
+
+//console.log(data):
 
 if("j" in args) {
     console.log(data);
