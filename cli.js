@@ -22,7 +22,7 @@ const timezone = moment.tz.guess();
 
 let latitude;
 let longitude;
-let timezone_1;
+var timezone_1;
 
 if (args.n) {
     latitude = args.n;
