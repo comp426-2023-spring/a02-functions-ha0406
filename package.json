@@ -10,10 +10,19 @@
     "type": "git",
     "url": "git+https://github.com/comp426-2023-spring/a02-functions-ha0406.git"
   },
+  "bin": {
+    "galosh.js": "./cli.js"
+  },
   "author": "@ha0406",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/comp426-2023-spring/a02-functions-ha0406/issues"
   },
-  "homepage": "https://github.com/comp426-2023-spring/a02-functions-ha0406#readme"
+  "homepage": "https://github.com/comp426-2023-spring/a02-functions-ha0406#readme",
+  "type": "module",
+  "dependencies": {
+    "minimist": "^1.2.8",
+    "moment-timezone": "^0.5.43",
+    "node-fetch": "^3.3.1"
+  }
 }
