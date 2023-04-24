@@ -18,14 +18,19 @@ if('h' in args){
     process.exit(0);
 }
 
+// let "vars"
 let long;
 let lat;
+
+// n
 
 if('n' in args) {
     lat = args["n"];
 }else if('s' in args) {
     lat = -args["s"];
 }
+
+// e
 
 if('e' in args) {
     long = args["e"];
@@ -46,15 +51,15 @@ if(long == undefined || Math.abs(long) > 180) {
     process.exit(1);
 }
 
-//Set the timexone
+// timezone
 let timezone = moment.tz.guess();
 if('t' in args){
     timezone  =  args['t'];
 }
 
-//Send API request 
-let req_url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + long + "&daily=precipitation_hours&current_weather=true&timezone=" + timezone;
-const response = await fetch(req_url);
+//API request 
+let a02url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + long + "&daily=precipitation_hours&current_weather=true&timezone=" + timezone;
+const response = await fetch(a02url);
 let data = await response.json();
 //console.log(data)
 
@@ -65,7 +70,7 @@ if("j" in args) {
 
 let days = args['d']
 
-//console.log(data)
+//log(data)
 
 if (days == 0) {
     console.log("It will rain at the coordinates: " + lat + ", " + long  + data["daily"]["precipitation_hours"][0] + " hours today.\n");
